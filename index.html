@@ -187,19 +187,20 @@
         <h3>Retail</h3>
         <div class="section-title-line"></div>
       </div>
-      <div class="card theme-orange placeholder">
+      <a class="card theme-orange" id="retail-card" href="retail/2026-04-27.html">
         <div class="card-accent"></div>
         <div class="card-top">
           <div class="card-icon">🛍️</div>
-          <span class="card-badge">Coming soon</span>
+          <span class="card-badge">Latest</span>
         </div>
         <h4>Retail Sales</h4>
-        <p>Product sales and retail performance by week.</p>
+        <div class="card-revenue" id="retail-revenue">—</div>
+        <div class="card-revenue-label">Revenue ex GST</div>
         <div class="card-footer">
-          <span class="card-date">—</span>
+          <span class="card-date" id="retail-date">—</span>
           <span class="card-arrow">→</span>
         </div>
-      </div>
+      </a>
     </div>
 
   </div>
@@ -269,6 +270,24 @@
 
       // Show revenue if available
       const revenueEl = document.getElementById("service-revenue");
+      if (latest.revenueExGst != null) {
+        revenueEl.textContent = "$" + Math.round(latest.revenueExGst).toLocaleString("en-AU");
+      } else {
+        revenueEl.textContent = "—";
+      }
+    })
+    .catch(() => {});
+
+  // Dynamically load latest retail week from manifest
+  fetch("retail/manifest.json")
+    .then(r => r.json())
+    .then(data => {
+      const reports = data.reports;
+      if (!reports || !reports.length) return;
+      const latest = reports[reports.length - 1];
+      document.getElementById("retail-card").href = "retail/" + latest.filename;
+      document.getElementById("retail-date").textContent = latest.label;
+      const revenueEl = document.getElementById("retail-revenue");
       if (latest.revenueExGst != null) {
         revenueEl.textContent = "$" + Math.round(latest.revenueExGst).toLocaleString("en-AU");
       } else {

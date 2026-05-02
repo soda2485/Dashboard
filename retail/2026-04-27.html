@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Retail Performance · 27 Apr – 03 May 2026 · Soda the Salon</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; background: #f7f7f5; color: #1a1a1a; min-height: 100vh; }
+    .topbar { background: #fff; border-bottom: 1px solid #e8e8e5; padding: 0 40px; display: flex; align-items: center; justify-content: space-between; height: 60px; position: sticky; top: 0; z-index: 100; }
+    .topbar-left { display: flex; align-items: center; gap: 12px; }
+    .logo { width: 32px; height: 32px; background: linear-gradient(135deg, #e07b5a, #a67cc9); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 800; font-size: 15px; }
+    .topbar h1 { font-size: 16px; font-weight: 700; color: #111; }
+    .back-link { font-size: 13px; color: #888; text-decoration: none; display: flex; align-items: center; gap: 4px; transition: color 0.15s; }
+    .back-link:hover { color: #333; }
+    .navbar { background: #fff; border-bottom: 1px solid #e8e8e5; padding: 0 40px; height: 52px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .nav-btn { display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: #555; text-decoration: none; padding: 6px 14px; border-radius: 8px; border: 1px solid #e0e0dc; background: #fafaf8; transition: background 0.15s, color 0.15s, border-color 0.15s; white-space: nowrap; }
+    .nav-btn:hover { background: #f0f0ec; color: #111; border-color: #ccc; }
+    .nav-btn.disabled { opacity: 0.35; pointer-events: none; }
+    .nav-center { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+    .nav-label { font-size: 14px; font-weight: 700; color: #111; }
+    .nav-sub { font-size: 11px; color: #aaa; letter-spacing: 0.3px; }
+    .page { max-width: 900px; margin: 0 auto; padding: 40px 32px; }
+    header { margin-bottom: 28px; }
+    header h2 { font-size: 22px; font-weight: 700; letter-spacing: -0.3px; color: #111; }
+    header p { font-size: 13px; color: #888; margin-top: 4px; }
+    .controls-row { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 20px; }
+    .tab-group { display: flex; background: #f0f0ec; border-radius: 10px; padding: 3px; gap: 2px; }
+    .tab-btn { font-size: 13px; font-weight: 600; color: #777; background: transparent; border: none; padding: 5px 16px; border-radius: 8px; cursor: pointer; transition: background 0.15s, color 0.15s; }
+    .tab-btn.active { background: #fff; color: #111; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .tab-btn:hover:not(.active) { color: #333; }
+    .filter-row { display: flex; gap: 10px; flex-wrap: wrap; }
+    .badge { display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; cursor: pointer; border: 2px solid transparent; transition: opacity 0.15s, border-color 0.15s; user-select: none; }
+    .badge.active { border-color: rgba(0,0,0,0.25); }
+    .badge:hover { opacity: 0.8; }
+    .badge .dot { width: 8px; height: 8px; border-radius: 50%; }
+    .chart-wrap { background: #fff; border-radius: 14px; padding: 28px 32px; box-shadow: 0 1px 4px rgba(0,0,0,0.07); margin-top: 20px; }
+    .chart-title { font-size: 13px; font-weight: 600; color: #555; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 20px; }
+    .cat-header { display: flex; align-items: center; margin-top: 24px; margin-bottom: 10px; }
+    .cat-header:first-child { margin-top: 0; }
+    .cat-header.hidden { display: none; }
+    .cat-header-label { width: 250px; min-width: 250px; text-align: right; padding-right: 14px; }
+    .cat-header-label span { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; padding: 3px 10px; border-radius: 20px; }
+    .cat-header-line { flex: 1; height: 1px; background: #e8e8e8; }
+    .cat-total { font-size: 12px; font-weight: 700; padding-left: 10px; white-space: nowrap; }
+    .row { display: flex; align-items: center; margin-bottom: 9px; }
+    .row.hidden { display: none; }
+    .label { width: 250px; min-width: 250px; font-size: 13px; color: #333; text-align: right; padding-right: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .bar-track { flex: 1; display: flex; align-items: center; gap: 8px; }
+    .bar { height: 22px; border-radius: 4px; min-width: 4px; transition: width 0.25s ease; }
+    .count { font-size: 13px; font-weight: 600; color: #555; white-space: nowrap; }
+    .grand-total-row { display: flex; align-items: center; margin-top: 20px; padding-top: 16px; border-top: 2px solid #e0e0de; }
+    .grand-total-label { width: 250px; min-width: 250px; font-size: 13px; font-weight: 700; color: #111; text-align: right; padding-right: 14px; }
+    .grand-total-value { font-size: 16px; font-weight: 800; color: #111; white-space: nowrap; }
+    @media (max-width: 600px) { .topbar { padding: 0 16px; } .navbar { padding: 0 16px; } .page { padding: 24px 16px; } .label { width: 150px; min-width: 150px; font-size: 11px; } .cat-header-label { width: 150px; min-width: 150px; } }
+  </style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-left">
+    <div class="logo">S</div>
+    <h1>Soda the Salon</h1>
+  </div>
+  <a class="back-link" href="../index.html">← Dashboard</a>
+</div>
+
+<div class="navbar">
+  <a class="nav-btn disabled" id="btn-prev">← Previous</a>
+  <div class="nav-center">
+    <span class="nav-label" id="nav-label">27 Apr – 03 May 2026</span>
+    <span class="nav-sub">Retail Performance</span>
+  </div>
+  <a class="nav-btn disabled" id="btn-next">Next →</a>
+</div>
+
+<div class="page">
+  <header>
+    <h2>Retail Performance</h2>
+    <p>Soda the Salon &nbsp;·&nbsp; 27 Apr – 03 May 2026 &nbsp;·&nbsp; 7 days</p>
+  </header>
+  <div class="controls-row">
+    <div class="tab-group">
+      <button class="tab-btn active" data-tab="count" onclick="setTab('count')">Qty Sold</button>
+      <button class="tab-btn" data-tab="revenue" onclick="setTab('revenue')">Revenue ex GST</button>
+    </div>
+    <div class="filter-row" id="filters"></div>
+  </div>
+  <div class="chart-wrap">
+    <div class="chart-title" id="chart-title">Units sold · grouped by brand</div>
+    <div id="chart"></div>
+  </div>
+</div>
+
+<script>
+  const THIS_FILE = "2026-04-27.html";
+
+  const products = [
+    // Clever Curl
+    { name: "Clever curl Rich conditioner",            qty: 1, revenue: 39.95,  brand: "Clever Curl" },
+    { name: "Curl Wonder Foam",                        qty: 1, revenue: 29.95,  brand: "Clever Curl" },
+    { name: "Curl gel dry",                            qty: 1, revenue: 45.41,  brand: "Clever Curl" },
+    // Evo
+    { name: "EVO Crop Strutters Construction Cream",   qty: 1, revenue: 40.91,  brand: "Evo" },
+    { name: "Mister Fantastic Blow Out Spray",         qty: 1, revenue: 40.91,  brand: "Evo" },
+    { name: "Ritual Salvation Repairing Shampoo",      qty: 1, revenue: 39.09,  brand: "Evo" },
+    { name: "The Ritual Salvation Repairing Cond.",    qty: 1, revenue: 40.91,  brand: "Evo" },
+    { name: "The Therapist Hydrating Conditioner",     qty: 1, revenue: 40.91,  brand: "Evo" },
+    { name: "The Therapist Hydrating Shampoo",         qty: 1, revenue: 39.09,  brand: "Evo" },
+    // K18
+    { name: "K18 Damage Shield Conditioner",           qty: 1, revenue: 54.50,  brand: "K18" },
+    { name: "K18 Damage Shield Shampoo 250ml",         qty: 1, revenue: 54.50,  brand: "K18" },
+    { name: "K18 Leave-In Molecular Repair Mask 50ml", qty: 1, revenue: 104.50, brand: "K18" },
+    { name: "K18 Peptide Prep Detox Shampoo 250ml",    qty: 1, revenue: 54.50,  brand: "K18" },
+    // O & M
+    { name: "O & M Desert Dry",                        qty: 1, revenue: 39.95,  brand: "O & M" },
+    { name: "O & M Hydrate and Conquer Conditioner",   qty: 1, revenue: 39.95,  brand: "O & M" },
+    { name: "O & M Know Knott",                        qty: 1, revenue: 39.05,  brand: "O & M" },
+    { name: "O & M Maintain the Mane Conditioner",     qty: 1, revenue: 39.95,  brand: "O & M" },
+    { name: "O & M Maintain the Mane Shampoo",         qty: 2, revenue: 79.91,  brand: "O & M" },
+    { name: "O & M Original Detox Shampoo",            qty: 1, revenue: 39.95,  brand: "O & M" },
+    { name: "O&M curl curl cream",                     qty: 1, revenue: 41.77,  brand: "O & M" },
+    { name: "O&M curl curl spray",                     qty: 1, revenue: 41.77,  brand: "O & M" },
+  ];
+
+  const palette = {
+    "Clever Curl": { bar: "#3daa8c", bg: "#e6f7f3", text: "#1a6b50" },
+    "Evo":         { bar: "#5b8dd9", bg: "#eaf1fb", text: "#2c4e8a" },
+    "K18":         { bar: "#d4693e", bg: "#fbeee7", text: "#7a2e12" },
+    "O & M":       { bar: "#9b6ac9", bg: "#f0eaf9", text: "#502e8a" },
+  };
+
+  const brandOrder = ["Clever Curl", "Evo", "K18", "O & M"];
+  let currentTab = 'count';
+
+  const maxQty     = Math.max(...products.map(p => p.qty));
+  const maxRevenue = Math.max(...products.map(p => p.revenue));
+
+  const groupedByQty = {}, groupedByRevenue = {};
+  brandOrder.forEach(b => { groupedByQty[b] = []; groupedByRevenue[b] = []; });
+  products.forEach(p => {
+    if (groupedByQty[p.brand])     groupedByQty[p.brand].push(p);
+    if (groupedByRevenue[p.brand]) groupedByRevenue[p.brand].push(p);
+  });
+  brandOrder.forEach(b => {
+    groupedByQty[b].sort((a,b) => b.qty - a.qty);
+    groupedByRevenue[b].sort((a,b) => b.revenue - a.revenue);
+  });
+
+  let activeBrands = new Set(brandOrder);
+  const filtersEl = document.getElementById("filters");
+  brandOrder.forEach(brand => {
+    const c = palette[brand];
+    const btn = document.createElement("div");
+    btn.className = "badge active";
+    btn.style.background = c.bg;
+    btn.style.color = c.text;
+    btn.innerHTML = `<span class="dot" style="background:${c.bar}"></span>${brand}`;
+    btn.addEventListener("click", () => {
+      if (activeBrands.has(brand)) { activeBrands.delete(brand); btn.classList.remove("active"); }
+      else { activeBrands.add(brand); btn.classList.add("active"); }
+      renderRows();
+    });
+    filtersEl.appendChild(btn);
+  });
+
+  function setTab(tab) {
+    currentTab = tab;
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelector('[data-tab="' + tab + '"]').classList.add('active');
+    document.getElementById('chart-title').textContent = tab === 'count'
+      ? 'Units sold · grouped by brand'
+      : 'Revenue ex GST · grouped by brand';
+    renderRows();
+  }
+
+  const chartEl = document.getElementById("chart");
+  function renderRows() {
+    chartEl.innerHTML = "";
+    const grouped = currentTab === 'count' ? groupedByQty : groupedByRevenue;
+    const maxVal  = currentTab === 'count' ? maxQty : maxRevenue;
+    let firstVisible = true;
+    let grandTotal = 0;
+
+    brandOrder.forEach(brand => {
+      const c = palette[brand];
+      const visible = activeBrands.has(brand);
+      const brandTotal = grouped[brand].reduce((s, p) => s + (currentTab === 'count' ? p.qty : p.revenue), 0);
+      if (visible) grandTotal += brandTotal;
+
+      const brandDisplay = currentTab === 'count'
+        ? brandTotal
+        : '$' + Math.round(brandTotal).toLocaleString('en-AU');
+
+      const header = document.createElement("div");
+      header.className = "cat-header" + (visible ? "" : " hidden");
+      if (visible && firstVisible) { header.style.marginTop = "0"; firstVisible = false; }
+      header.innerHTML = `
+        <div class="cat-header-label">
+          <span style="background:${c.bg};color:${c.text};">
+            <span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:${c.bar};"></span>
+            ${brand}
+          </span>
+        </div>
+        <div class="cat-header-line"></div>
+        <span class="cat-total" style="color:${c.text};">${brandDisplay}</span>`;
+      chartEl.appendChild(header);
+
+      grouped[brand].forEach(p => {
+        const val = currentTab === 'count' ? p.qty : p.revenue;
+        const pct = maxVal > 0 ? (val / maxVal) * 100 : 0;
+        const display = currentTab === 'count'
+          ? p.qty
+          : '$' + Math.round(p.revenue).toLocaleString('en-AU');
+        const row = document.createElement("div");
+        row.className = "row" + (visible ? "" : " hidden");
+        row.innerHTML = `
+          <div class="label" title="${p.name}">${p.name}</div>
+          <div class="bar-track">
+            <div class="bar" style="width:${pct}%;background:${c.bar};"></div>
+            <span class="count">${display}</span>
+          </div>`;
+        chartEl.appendChild(row);
+      });
+    });
+
+    const grandDisplay = currentTab === 'count'
+      ? grandTotal
+      : '$' + Math.round(grandTotal).toLocaleString('en-AU');
+    const totalRow = document.createElement("div");
+    totalRow.className = "grand-total-row";
+    totalRow.innerHTML = `
+      <div class="grand-total-label">Total</div>
+      <div class="bar-track">
+        <div style="flex:1;"></div>
+        <span class="grand-total-value">${grandDisplay}</span>
+      </div>`;
+    chartEl.appendChild(totalRow);
+  }
+  renderRows();
+
+  fetch("manifest.json")
+    .then(r => r.json())
+    .then(data => {
+      const reports = data.reports;
+      const idx = reports.findIndex(r => r.filename === THIS_FILE);
+      if (idx < 0) return;
+      document.getElementById("nav-label").textContent = reports[idx].label;
+      const prevBtn = document.getElementById("btn-prev");
+      const nextBtn = document.getElementById("btn-next");
+      if (idx > 0) {
+        const prev = reports[idx - 1];
+        prevBtn.classList.remove("disabled");
+        prevBtn.href = prev.filename;
+        prevBtn.innerHTML = `← ${prev.label}`;
+      }
+      if (idx < reports.length - 1) {
+        const next = reports[idx + 1];
+        nextBtn.classList.remove("disabled");
+        nextBtn.href = next.filename;
+        nextBtn.innerHTML = `${next.label} →`;
+      }
+    })
+    .catch(() => {});
+</script>
+</body>
+</html>
