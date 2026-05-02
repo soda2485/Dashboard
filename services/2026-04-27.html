@@ -25,12 +25,17 @@
     header { margin-bottom: 28px; }
     header h2 { font-size: 22px; font-weight: 700; letter-spacing: -0.3px; color: #111; }
     header p { font-size: 13px; color: #888; margin-top: 4px; }
-    .filter-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 28px; }
+    .controls-row { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 20px; }
+    .tab-group { display: flex; background: #f0f0ec; border-radius: 10px; padding: 3px; gap: 2px; }
+    .tab-btn { font-size: 13px; font-weight: 600; color: #777; background: transparent; border: none; padding: 5px 16px; border-radius: 8px; cursor: pointer; transition: background 0.15s, color 0.15s; }
+    .tab-btn.active { background: #fff; color: #111; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .tab-btn:hover:not(.active) { color: #333; }
+    .filter-row { display: flex; gap: 10px; flex-wrap: wrap; }
     .badge { display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; cursor: pointer; border: 2px solid transparent; transition: opacity 0.15s, border-color 0.15s; user-select: none; }
     .badge.active { border-color: rgba(0,0,0,0.25); }
     .badge:hover { opacity: 0.8; }
     .badge .dot { width: 8px; height: 8px; border-radius: 50%; }
-    .chart-wrap { background: #fff; border-radius: 14px; padding: 28px 32px; box-shadow: 0 1px 4px rgba(0,0,0,0.07); }
+    .chart-wrap { background: #fff; border-radius: 14px; padding: 28px 32px; box-shadow: 0 1px 4px rgba(0,0,0,0.07); margin-top: 20px; }
     .chart-title { font-size: 13px; font-weight: 600; color: #555; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 20px; }
     .cat-header { display: flex; align-items: center; margin-top: 24px; margin-bottom: 10px; }
     .cat-header:first-child { margin-top: 0; }
@@ -42,7 +47,7 @@
     .row.hidden { display: none; }
     .label { width: 250px; min-width: 250px; font-size: 13px; color: #333; text-align: right; padding-right: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .bar-track { flex: 1; display: flex; align-items: center; gap: 8px; }
-    .bar { height: 22px; border-radius: 4px; min-width: 4px; }
+    .bar { height: 22px; border-radius: 4px; min-width: 4px; transition: width 0.25s ease; }
     .count { font-size: 13px; font-weight: 600; color: #555; white-space: nowrap; }
     @media (max-width: 600px) { .topbar { padding: 0 16px; } .navbar { padding: 0 16px; } .page { padding: 24px 16px; } .label { width: 150px; min-width: 150px; font-size: 11px; } .cat-header-label { width: 150px; min-width: 150px; } }
   </style>
@@ -71,9 +76,15 @@
     <h2>Service Performance</h2>
     <p>Soda the Salon &nbsp;·&nbsp; 27 Apr – 02 May 2026 &nbsp;·&nbsp; 7 days</p>
   </header>
-  <div class="filter-row" id="filters"></div>
+  <div class="controls-row">
+    <div class="tab-group">
+      <button class="tab-btn active" data-tab="count" onclick="setTab('count')">Count</button>
+      <button class="tab-btn" data-tab="revenue" onclick="setTab('revenue')">Revenue ex GST</button>
+    </div>
+    <div class="filter-row" id="filters"></div>
+  </div>
   <div class="chart-wrap">
-    <div class="chart-title">Services performed · grouped by category</div>
+    <div class="chart-title" id="chart-title">Services performed · grouped by category</div>
     <div id="chart"></div>
   </div>
 </div>
@@ -83,59 +94,59 @@
 
   const services = [
     // Cuts & Style
-    { name: "Haircut & Style",                    count: 42, cat: "Cuts & Style" },
-    { name: "Re-style Haircut",                   count: 9,  cat: "Cuts & Style" },
-    { name: "Short Haircut & Style",              count: 7,  cat: "Cuts & Style" },
-    { name: "Blunt Cut",                          count: 7,  cat: "Cuts & Style" },
-    { name: "Fringe Trim",                        count: 3,  cat: "Cuts & Style" },
-    { name: "Men's Style Cut & Finish",           count: 3,  cat: "Cuts & Style" },
-    { name: "Shag | Wolf Cut",                    count: 3,  cat: "Cuts & Style" },
-    { name: "Blunt Cut / Express / Wet",          count: 2,  cat: "Cuts & Style" },
-    { name: "Express Beach Waves",                count: 1,  cat: "Cuts & Style" },
+    { name: "Haircut & Style",                    count: 42, revenue: 4954.55, cat: "Cuts & Style" },
+    { name: "Re-style Haircut",                   count: 9,  revenue: 1222.73, cat: "Cuts & Style" },
+    { name: "Short Haircut & Style",              count: 7,  revenue: 822.73,  cat: "Cuts & Style" },
+    { name: "Blunt Cut",                          count: 7,  revenue: 436.36,  cat: "Cuts & Style" },
+    { name: "Fringe Trim",                        count: 3,  revenue: 77.27,   cat: "Cuts & Style" },
+    { name: "Men's Style Cut & Finish",           count: 3,  revenue: 281.82,  cat: "Cuts & Style" },
+    { name: "Shag | Wolf Cut",                    count: 3,  revenue: 409.09,  cat: "Cuts & Style" },
+    { name: "Blunt Cut / Express / Wet",          count: 2,  revenue: 150.00,  cat: "Cuts & Style" },
+    { name: "Express Beach Waves",                count: 1,  revenue: 59.09,   cat: "Cuts & Style" },
     // Colour & Chemical
-    { name: "Regrowth Tint - SML (20g)",          count: 7,  cat: "Colour & Chemical" },
-    { name: "Regrowth Tint - MED (30g)",          count: 5,  cat: "Colour & Chemical" },
-    { name: "Global Colour - MED",                count: 3,  cat: "Colour & Chemical" },
-    { name: "Global Colour - SML",                count: 3,  cat: "Colour & Chemical" },
-    { name: "Regrowth Tint - LRG (40g)",          count: 3,  cat: "Colour & Chemical" },
-    { name: "Scalp Bleach",                       count: 3,  cat: "Colour & Chemical" },
-    { name: "Global Colour - LRG",                count: 1,  cat: "Colour & Chemical" },
-    { name: "Regrowth Tint - XLRG (50g)",         count: 1,  cat: "Colour & Chemical" },
+    { name: "Regrowth Tint - SML (20g)",          count: 7,  revenue: 736.36,  cat: "Colour & Chemical" },
+    { name: "Regrowth Tint - MED (30g)",          count: 5,  revenue: 627.27,  cat: "Colour & Chemical" },
+    { name: "Global Colour - MED",                count: 3,  revenue: 518.18,  cat: "Colour & Chemical" },
+    { name: "Global Colour - SML",                count: 3,  revenue: 400.00,  cat: "Colour & Chemical" },
+    { name: "Regrowth Tint - LRG (40g)",          count: 3,  revenue: 272.73,  cat: "Colour & Chemical" },
+    { name: "Scalp Bleach",                       count: 3,  revenue: 509.09,  cat: "Colour & Chemical" },
+    { name: "Global Colour - LRG",                count: 1,  revenue: 200.00,  cat: "Colour & Chemical" },
+    { name: "Regrowth Tint - XLRG (50g)",         count: 1,  revenue: 154.55,  cat: "Colour & Chemical" },
     // Toning
-    { name: "Gloss Toner - MED",                  count: 9,  cat: "Toning" },
-    { name: "Gloss Toner - SML",                  count: 8,  cat: "Toning" },
-    { name: "Gloss Toner - LRG",                  count: 6,  cat: "Toning" },
-    { name: "Gloss Toner - XLRG",                 count: 3,  cat: "Toning" },
-    { name: "Gloss Toner (Consult)",              count: 2,  cat: "Toning" },
-    { name: "Zonal Toning - MED",                 count: 1,  cat: "Toning" },
+    { name: "Gloss Toner - MED",                  count: 9,  revenue: 654.55,  cat: "Toning" },
+    { name: "Gloss Toner - SML",                  count: 8,  revenue: 400.00,  cat: "Toning" },
+    { name: "Gloss Toner - LRG",                  count: 6,  revenue: 536.36,  cat: "Toning" },
+    { name: "Gloss Toner - XLRG",                 count: 3,  revenue: 272.73,  cat: "Toning" },
+    { name: "Gloss Toner (Consult)",              count: 2,  revenue: 0,        cat: "Toning" },
+    { name: "Zonal Toning - MED",                 count: 1,  revenue: 109.09,  cat: "Toning" },
     // Finishing
-    { name: "Dry Off",                            count: 11, cat: "Finishing" },
-    { name: "Blowdry - MED",                      count: 5,  cat: "Finishing" },
-    { name: "Blowdry - LRG",                      count: 2,  cat: "Finishing" },
-    { name: "Hollywood Bouncy Blowout - MED",     count: 1,  cat: "Finishing" },
-    { name: "Hollywood Bouncy Blowout - LRG",     count: 1,  cat: "Finishing" },
-    { name: "Blowdry - SML",                      count: 1,  cat: "Finishing" },
+    { name: "Dry Off",                            count: 11, revenue: 100.00,  cat: "Finishing" },
+    { name: "Blowdry - MED",                      count: 5,  revenue: 351.82,  cat: "Finishing" },
+    { name: "Blowdry - LRG",                      count: 2,  revenue: 172.73,  cat: "Finishing" },
+    { name: "Hollywood Bouncy Blowout - MED",     count: 1,  revenue: 81.82,   cat: "Finishing" },
+    { name: "Hollywood Bouncy Blowout - LRG",     count: 1,  revenue: 72.73,   cat: "Finishing" },
+    { name: "Blowdry - SML",                      count: 1,  revenue: 68.18,   cat: "Finishing" },
     // Treatments
-    { name: "K18",                                count: 3,  cat: "Treatments" },
-    { name: "EVO Top Drop",                       count: 2,  cat: "Treatments" },
-    { name: "Olaplex 1 + 2",                      count: 2,  cat: "Treatments" },
+    { name: "K18",                                count: 3,  revenue: 168.18,  cat: "Treatments" },
+    { name: "EVO Top Drop",                       count: 2,  revenue: 63.64,   cat: "Treatments" },
+    { name: "Olaplex 1 + 2",                      count: 2,  revenue: 59.09,   cat: "Treatments" },
     // Foils & Balayage
-    { name: "Foils Full Head Package - LRG",      count: 2,  cat: "Foils & Balayage" },
-    { name: "Foils ½ Head Package - MED",       count: 2,  cat: "Foils & Balayage" },
-    { name: "Balayage ½ Head Package - MED",    count: 2,  cat: "Foils & Balayage" },
-    { name: "Balayage ¾ Head Package - MED",    count: 2,  cat: "Foils & Balayage" },
-    { name: "Balayage ¼ Head Package - LRG",    count: 1,  cat: "Foils & Balayage" },
-    { name: "Balayage ½ Head Package - LRG",    count: 1,  cat: "Foils & Balayage" },
-    { name: "Balayage Full Head Package - LRG",   count: 1,  cat: "Foils & Balayage" },
-    { name: "Balayage Full Head Package - XLRG",  count: 1,  cat: "Foils & Balayage" },
-    { name: "Face Frame Foils Package - SML",     count: 1,  cat: "Foils & Balayage" },
-    { name: "Foils ¼ Head Package - MED",       count: 1,  cat: "Foils & Balayage" },
-    { name: "Foils ½ Head Package - SML",       count: 1,  cat: "Foils & Balayage" },
-    { name: "Foils Full Head Package - MED",      count: 1,  cat: "Foils & Balayage" },
-    { name: "Foils Full Head Package - SML",      count: 1,  cat: "Foils & Balayage" },
-    { name: "Foils Full Head Package - XLRG",     count: 1,  cat: "Foils & Balayage" },
+    { name: "Foils Full Head Package - LRG",      count: 2,  revenue: 890.91,  cat: "Foils & Balayage" },
+    { name: "Foils ½ Head Package - MED",       count: 2,  revenue: 345.45,  cat: "Foils & Balayage" },
+    { name: "Balayage ½ Head Package - MED",    count: 2,  revenue: 363.64,  cat: "Foils & Balayage" },
+    { name: "Balayage ¾ Head Package - MED",    count: 2,  revenue: 436.36,  cat: "Foils & Balayage" },
+    { name: "Balayage ¼ Head Package - LRG",    count: 1,  revenue: 181.82,  cat: "Foils & Balayage" },
+    { name: "Balayage ½ Head Package - LRG",    count: 1,  revenue: 218.18,  cat: "Foils & Balayage" },
+    { name: "Balayage Full Head Package - LRG",   count: 1,  revenue: 281.82,  cat: "Foils & Balayage" },
+    { name: "Balayage Full Head Package - XLRG",  count: 1,  revenue: 336.36,  cat: "Foils & Balayage" },
+    { name: "Face Frame Foils Package - SML",     count: 1,  revenue: 77.27,   cat: "Foils & Balayage" },
+    { name: "Foils ¼ Head Package - MED",       count: 1,  revenue: 127.27,  cat: "Foils & Balayage" },
+    { name: "Foils ½ Head Package - SML",       count: 1,  revenue: 136.36,  cat: "Foils & Balayage" },
+    { name: "Foils Full Head Package - MED",      count: 1,  revenue: 240.91,  cat: "Foils & Balayage" },
+    { name: "Foils Full Head Package - SML",      count: 1,  revenue: 300.00,  cat: "Foils & Balayage" },
+    { name: "Foils Full Head Package - XLRG",     count: 1,  revenue: 313.64,  cat: "Foils & Balayage" },
     // Other
-    { name: "No Treatment Thanks",                count: 7,  cat: "Other" },
+    { name: "No Treatment Thanks",                count: 7,  revenue: 0,        cat: "Other" },
   ];
 
   const palette = {
@@ -149,12 +160,22 @@
   };
 
   const catOrder = ["Cuts & Style","Colour & Chemical","Toning","Finishing","Treatments","Foils & Balayage","Other"];
-  const maxCount = Math.max(...services.map(s => s.count));
+  let currentTab = 'count';
 
-  const grouped = {};
-  catOrder.forEach(cat => { grouped[cat] = []; });
-  services.forEach(svc => { if (grouped[svc.cat]) grouped[svc.cat].push(svc); });
-  catOrder.forEach(cat => grouped[cat].sort((a,b) => b.count - a.count));
+  const maxCount   = Math.max(...services.map(s => s.count));
+  const maxRevenue = Math.max(...services.map(s => s.revenue));
+
+  const groupedByCount = {};
+  const groupedByRevenue = {};
+  catOrder.forEach(cat => { groupedByCount[cat] = []; groupedByRevenue[cat] = []; });
+  services.forEach(svc => {
+    if (groupedByCount[svc.cat])   groupedByCount[svc.cat].push(svc);
+    if (groupedByRevenue[svc.cat]) groupedByRevenue[svc.cat].push(svc);
+  });
+  catOrder.forEach(cat => {
+    groupedByCount[cat].sort((a,b) => b.count - a.count);
+    groupedByRevenue[cat].sort((a,b) => b.revenue - a.revenue);
+  });
 
   let activeCategories = new Set(catOrder);
   const filtersEl = document.getElementById("filters");
@@ -173,9 +194,22 @@
     filtersEl.appendChild(btn);
   });
 
+  function setTab(tab) {
+    currentTab = tab;
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelector('[data-tab="' + tab + '"]').classList.add('active');
+    const titleEl = document.getElementById('chart-title');
+    titleEl.textContent = tab === 'count'
+      ? 'Services performed · grouped by category'
+      : 'Revenue ex GST · grouped by category';
+    renderRows();
+  }
+
   const chartEl = document.getElementById("chart");
   function renderRows() {
     chartEl.innerHTML = "";
+    const grouped = currentTab === 'count' ? groupedByCount : groupedByRevenue;
+    const maxVal  = currentTab === 'count' ? maxCount : maxRevenue;
     let firstVisible = true;
     catOrder.forEach(cat => {
       const c = palette[cat];
@@ -193,14 +227,18 @@
         <div class="cat-header-line"></div>`;
       chartEl.appendChild(header);
       grouped[cat].forEach(svc => {
-        const pct = (svc.count / maxCount) * 100;
+        const val = currentTab === 'count' ? svc.count : svc.revenue;
+        const pct = maxVal > 0 ? (val / maxVal) * 100 : 0;
+        const display = currentTab === 'count'
+          ? svc.count
+          : (svc.revenue > 0 ? '$' + Math.round(svc.revenue).toLocaleString('en-AU') : '—');
         const row = document.createElement("div");
         row.className = "row" + (visible ? "" : " hidden");
         row.innerHTML = `
           <div class="label" title="${svc.name}">${svc.name}</div>
           <div class="bar-track">
             <div class="bar" style="width:${pct}%;background:${c.bar};"></div>
-            <span class="count">${svc.count}</span>
+            <span class="count">${display}</span>
           </div>`;
         chartEl.appendChild(row);
       });
