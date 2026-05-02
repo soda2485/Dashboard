@@ -110,6 +110,12 @@
       letter-spacing: 0.6px;
       margin-top: 1px;
     }
+    .card-pct {
+      font-size: 14px;
+      font-weight: 700;
+      color: #777;
+      margin-top: 6px;
+    }
 
     .card p { font-size: 13px; color: #888; line-height: 1.5; }
 
@@ -233,16 +239,18 @@
         <h3>Staff Cost</h3>
         <div class="section-title-line"></div>
       </div>
-      <a class="card theme-gold" href="Payroll/staff-cost.html">
+      <a class="card theme-gold" id="staff-card" href="Payroll/staff-cost.html">
         <div class="card-accent"></div>
         <div class="card-top">
           <div class="card-icon">💰</div>
           <span class="card-badge">Latest</span>
         </div>
         <h4>Staff Cost</h4>
-        <p>Staff wages and cost breakdown by pay period.</p>
+        <div class="card-revenue" id="staff-cost">—</div>
+        <div class="card-revenue-label">Team IGA Cost</div>
+        <div class="card-pct" id="staff-pct">— of revenue</div>
         <div class="card-footer">
-          <span class="card-date">All periods</span>
+          <span class="card-date" id="staff-date">—</span>
           <span class="card-arrow">→</span>
         </div>
       </a>
@@ -293,6 +301,18 @@
       } else {
         revenueEl.textContent = "—";
       }
+    })
+    .catch(() => {});
+
+  // Dynamically load latest payroll data
+  fetch("Payroll/summary.json")
+    .then(r => r.json())
+    .then(data => {
+      const p = data.latest;
+      if (!p) return;
+      document.getElementById("staff-cost").textContent = "$" + Math.round(p.igaCost).toLocaleString("en-AU");
+      document.getElementById("staff-pct").textContent = p.igaPct.toFixed(1) + "% of revenue";
+      document.getElementById("staff-date").textContent = p.label;
     })
     .catch(() => {});
 </script>
