@@ -25,62 +25,22 @@
       justify-content: space-between;
       height: 60px;
     }
-
-    .topbar-left {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
+    .topbar-left { display: flex; align-items: center; gap: 12px; }
     .logo {
-      width: 32px;
-      height: 32px;
+      width: 32px; height: 32px;
       background: linear-gradient(135deg, #e07b5a, #a67cc9);
       border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-weight: 800;
-      font-size: 15px;
-      letter-spacing: -0.5px;
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-weight: 800; font-size: 15px; letter-spacing: -0.5px;
     }
-
-    .topbar h1 {
-      font-size: 16px;
-      font-weight: 700;
-      color: #111;
-      letter-spacing: -0.2px;
-    }
-
-    .topbar-date {
-      font-size: 12px;
-      color: #999;
-    }
+    .topbar h1 { font-size: 16px; font-weight: 700; color: #111; letter-spacing: -0.2px; }
+    .topbar-date { font-size: 12px; color: #999; }
 
     /* ── Page body ── */
-    .page {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 48px 32px;
-    }
-
-    .page-header {
-      margin-bottom: 40px;
-    }
-
-    .page-header h2 {
-      font-size: 26px;
-      font-weight: 700;
-      color: #111;
-      letter-spacing: -0.4px;
-    }
-
-    .page-header p {
-      font-size: 14px;
-      color: #888;
-      margin-top: 6px;
-    }
+    .page { max-width: 960px; margin: 0 auto; padding: 48px 32px; }
+    .page-header { margin-bottom: 40px; }
+    .page-header h2 { font-size: 26px; font-weight: 700; color: #111; letter-spacing: -0.4px; }
+    .page-header p { font-size: 14px; color: #888; margin-top: 6px; }
 
     /* ── Section pair (side-by-side) ── */
     .section-pair {
@@ -90,33 +50,16 @@
       margin-bottom: 40px;
       align-items: start;
     }
-
-    /* ── Section ── */
-    .section {
-      min-width: 0;
-    }
+    .section { min-width: 0; }
 
     .section-title {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 16px;
+      display: flex; align-items: center; gap: 10px; margin-bottom: 16px;
     }
-
     .section-title h3 {
-      font-size: 13px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.8px;
-      color: #555;
-      white-space: nowrap;
+      font-size: 13px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.8px; color: #555; white-space: nowrap;
     }
-
-    .section-title-line {
-      flex: 1;
-      height: 1px;
-      background: #e4e4e0;
-    }
+    .section-title-line { flex: 1; height: 1px; background: #e4e4e0; }
 
     /* ── Card ── */
     .card {
@@ -129,86 +72,53 @@
       color: inherit;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 10px;
       transition: box-shadow 0.15s, transform 0.15s;
       position: relative;
       overflow: hidden;
     }
-
-    .card:hover {
-      box-shadow: 0 4px 16px rgba(0,0,0,0.10);
-      transform: translateY(-2px);
-    }
-
-    .card.placeholder {
-      opacity: 0.5;
-      cursor: default;
-      pointer-events: none;
-    }
+    .card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.10); transform: translateY(-2px); }
+    .card.placeholder { opacity: 0.5; cursor: default; pointer-events: none; }
 
     .card-accent {
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 4px;
-      border-radius: 14px 14px 0 0;
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 4px; border-radius: 14px 14px 0 0;
     }
-
-    .card-top {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-    }
-
+    .card-top { display: flex; align-items: flex-start; justify-content: space-between; }
     .card-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
+      width: 40px; height: 40px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center; font-size: 18px;
     }
+    .card-badge { font-size: 11px; font-weight: 600; padding: 3px 9px; border-radius: 20px; }
 
-    .card-badge {
+    .card h4 { font-size: 16px; font-weight: 700; color: #111; letter-spacing: -0.2px; }
+
+    /* ── Revenue number ── */
+    .card-revenue {
+      font-size: 30px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      color: #111;
+      line-height: 1;
+      margin: 2px 0 0;
+    }
+    .card-revenue-label {
       font-size: 11px;
       font-weight: 600;
-      padding: 3px 9px;
-      border-radius: 20px;
+      color: #aaa;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      margin-top: 1px;
     }
 
-    .card h4 {
-      font-size: 16px;
-      font-weight: 700;
-      color: #111;
-      letter-spacing: -0.2px;
-    }
-
-    .card p {
-      font-size: 13px;
-      color: #888;
-      line-height: 1.5;
-    }
+    .card p { font-size: 13px; color: #888; line-height: 1.5; }
 
     .card-footer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-top: 4px;
+      display: flex; align-items: center; justify-content: space-between; margin-top: 4px;
     }
-
-    .card-date {
-      font-size: 12px;
-      color: #aaa;
-    }
-
-    .card-arrow {
-      font-size: 18px;
-      color: #ccc;
-    }
-
-    .card:hover .card-arrow {
-      color: #888;
-    }
+    .card-date { font-size: 12px; color: #aaa; }
+    .card-arrow { font-size: 18px; color: #ccc; }
+    .card:hover .card-arrow { color: #888; }
 
     /* colour themes */
     .theme-blue   { --accent: #6c9bd1; --bg: #eaf1fb; --text: #2c5a8a; }
@@ -227,12 +137,12 @@
       .topbar { padding: 0 16px; }
       .page { padding: 32px 16px; }
       .section-pair { grid-template-columns: 1fr; gap: 16px; margin-bottom: 24px; }
+      .card-revenue { font-size: 24px; }
     }
   </style>
 </head>
 <body>
 
-<!-- Top bar -->
 <div class="topbar">
   <div class="topbar-left">
     <div class="logo">S</div>
@@ -241,7 +151,6 @@
   <span class="topbar-date" id="today"></span>
 </div>
 
-<!-- Page -->
 <div class="page">
 
   <div class="page-header">
@@ -257,16 +166,17 @@
         <h3>Services</h3>
         <div class="section-title-line"></div>
       </div>
-      <a class="card theme-blue" href="services/2026-04-27.html">
+      <a class="card theme-blue" id="service-card" href="services/2026-04-27.html">
         <div class="card-accent"></div>
         <div class="card-top">
           <div class="card-icon">✂️</div>
           <span class="card-badge">Latest</span>
         </div>
         <h4>Service Performance</h4>
-        <p>Services performed by type — week ending 02 May 2026.</p>
+        <div class="card-revenue" id="service-revenue">—</div>
+        <div class="card-revenue-label">Revenue ex GST</div>
         <div class="card-footer">
-          <span class="card-date">27 Apr – 02 May 2026</span>
+          <span class="card-date" id="service-date">—</span>
           <span class="card-arrow">→</span>
         </div>
       </a>
@@ -344,6 +254,28 @@
 <script>
   document.getElementById("today").textContent =
     new Date().toLocaleDateString("en-AU", { weekday:"long", day:"numeric", month:"long", year:"numeric" });
+
+  // Dynamically load latest service week from manifest
+  fetch("services/manifest.json")
+    .then(r => r.json())
+    .then(data => {
+      const reports = data.reports;
+      if (!reports || !reports.length) return;
+      const latest = reports[reports.length - 1];
+
+      // Update card link and date
+      document.getElementById("service-card").href = "services/" + latest.filename;
+      document.getElementById("service-date").textContent = latest.label;
+
+      // Show revenue if available
+      const revenueEl = document.getElementById("service-revenue");
+      if (latest.revenueExGst != null) {
+        revenueEl.textContent = "$" + Math.round(latest.revenueExGst).toLocaleString("en-AU");
+      } else {
+        revenueEl.textContent = "—";
+      }
+    })
+    .catch(() => {});
 </script>
 
 </body>

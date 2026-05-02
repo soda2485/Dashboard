@@ -4,25 +4,29 @@
       "filename": "2026-04-06.html",
       "label": "06 Apr – 12 Apr 2026",
       "startDate": "2026-04-06",
-      "endDate": "2026-04-12"
+      "endDate": "2026-04-12",
+      "revenueExGst": 19112.27
     },
     {
       "filename": "2026-04-13.html",
       "label": "13 Apr – 19 Apr 2026",
       "startDate": "2026-04-13",
-      "endDate": "2026-04-19"
+      "endDate": "2026-04-19",
+      "revenueExGst": null
     },
     {
       "filename": "2026-04-20.html",
       "label": "20 Apr – 26 Apr 2026",
       "startDate": "2026-04-20",
-      "endDate": "2026-04-26"
+      "endDate": "2026-04-26",
+      "revenueExGst": null
     },
     {
       "filename": "2026-04-27.html",
       "label": "27 Apr – 02 May 2026",
       "startDate": "2026-04-27",
-      "endDate": "2026-05-02"
+      "endDate": "2026-05-02",
+      "revenueExGst": null
     }
   ]
 }
