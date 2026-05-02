@@ -1,6 +1,12 @@
 {
   "reports": [
     {
+      "filename": "2026-04-13.html",
+      "label": "13 Apr – 19 Apr 2026",
+      "startDate": "2026-04-13",
+      "endDate": "2026-04-19"
+    },
+    {
       "filename": "2026-04-20.html",
       "label": "20 Apr – 26 Apr 2026",
       "startDate": "2026-04-20",
