@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Soda the Salon · Dashboard</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      background: #f7f7f5;
+      color: #1a1a1a;
+      min-height: 100vh;
+    }
+
+    /* ── Top bar ── */
+    .topbar {
+      background: #fff;
+      border-bottom: 1px solid #e8e8e5;
+      padding: 0 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+    }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #e07b5a, #a67cc9);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 800;
+      font-size: 15px;
+      letter-spacing: -0.5px;
+    }
+
+    .topbar h1 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #111;
+      letter-spacing: -0.2px;
+    }
+
+    .topbar-date {
+      font-size: 12px;
+      color: #999;
+    }
+
+    /* ── Page body ── */
+    .page {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 48px 32px;
+    }
+
+    .page-header {
+      margin-bottom: 40px;
+    }
+
+    .page-header h2 {
+      font-size: 26px;
+      font-weight: 700;
+      color: #111;
+      letter-spacing: -0.4px;
+    }
+
+    .page-header p {
+      font-size: 14px;
+      color: #888;
+      margin-top: 6px;
+    }
+
+    /* ── Section ── */
+    .section {
+      margin-bottom: 48px;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .section-title h3 {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: #555;
+    }
+
+    .section-title-line {
+      flex: 1;
+      height: 1px;
+      background: #e4e4e0;
+    }
+
+    /* ── Cards grid ── */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 24px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+      border: 1px solid #efefed;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: box-shadow 0.15s, transform 0.15s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card:hover {
+      box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+      transform: translateY(-2px);
+    }
+
+    .card.placeholder {
+      opacity: 0.5;
+      cursor: default;
+      pointer-events: none;
+    }
+
+    .card-accent {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      border-radius: 14px 14px 0 0;
+    }
+
+    .card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+    }
+
+    .card-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+
+    .card-badge {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 9px;
+      border-radius: 20px;
+    }
+
+    .card h4 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #111;
+      letter-spacing: -0.2px;
+    }
+
+    .card p {
+      font-size: 13px;
+      color: #888;
+      line-height: 1.5;
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 4px;
+    }
+
+    .card-date {
+      font-size: 12px;
+      color: #aaa;
+    }
+
+    .card-arrow {
+      font-size: 18px;
+      color: #ccc;
+    }
+
+    .card:hover .card-arrow {
+      color: #888;
+    }
+
+    /* colour themes */
+    .theme-blue   { --accent: #6c9bd1; --bg: #eaf1fb; --text: #2c5a8a; }
+    .theme-orange { --accent: #e07b5a; --bg: #fceee9; --text: #8a3020; }
+    .theme-purple { --accent: #a67cc9; --bg: #f2eaf9; --text: #5a2e8a; }
+    .theme-green  { --accent: #4db89a; --bg: #e6f6f2; --text: #1a6652; }
+    .theme-gold   { --accent: #e0a83a; --bg: #fdf4e0; --text: #7a5200; }
+    .theme-grey   { --accent: #aaaaaa; --bg: #f0f0f0; --text: #555555; }
+
+    .card-accent   { background: var(--accent); }
+    .card-icon     { background: var(--bg); }
+    .card-badge    { background: var(--bg); color: var(--text); }
+  </style>
+</head>
+<body>
+
+<!-- Top bar -->
+<div class="topbar">
+  <div class="topbar-left">
+    <div class="logo">S</div>
+    <h1>Soda the Salon</h1>
+  </div>
+  <span class="topbar-date" id="today"></span>
+</div>
+
+<!-- Page -->
+<div class="page">
+
+  <div class="page-header">
+    <h2>Dashboard</h2>
+    <p>Weekly reports from Phorest — click any card to view the latest report.</p>
+  </div>
+
+  <!-- Services -->
+  <div class="section">
+    <div class="section-title">
+      <h3>Services</h3>
+      <div class="section-title-line"></div>
+    </div>
+    <div class="cards">
+
+      <a class="card theme-blue" href="services/2026-04-27.html">
+        <div class="card-accent"></div>
+        <div class="card-top">
+          <div class="card-icon">✂️</div>
+          <span class="card-badge">Latest</span>
+        </div>
+        <h4>Service Performance</h4>
+        <p>Services performed by type — week ending 02 May 2026.</p>
+        <div class="card-footer">
+          <span class="card-date">27 Apr – 02 May 2026</span>
+          <span class="card-arrow">→</span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- Retail -->
+  <div class="section">
+    <div class="section-title">
+      <h3>Retail</h3>
+      <div class="section-title-line"></div>
+    </div>
+    <div class="cards">
+
+      <div class="card theme-orange placeholder">
+        <div class="card-accent"></div>
+        <div class="card-top">
+          <div class="card-icon">🛍️</div>
+          <span class="card-badge">Coming soon</span>
+        </div>
+        <h4>Retail Sales</h4>
+        <p>Product sales and retail performance by week.</p>
+        <div class="card-footer">
+          <span class="card-date">—</span>
+          <span class="card-arrow">→</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Staff -->
+  <div class="section">
+    <div class="section-title">
+      <h3>Staff</h3>
+      <div class="section-title-line"></div>
+    </div>
+    <div class="cards">
+
+      <div class="card theme-purple placeholder">
+        <div class="card-accent"></div>
+        <div class="card-top">
+          <div class="card-icon">👩‍🎨</div>
+          <span class="card-badge">Coming soon</span>
+        </div>
+        <h4>Staff Performance</h4>
+        <p>Revenue and services broken down by staff member.</p>
+        <div class="card-footer">
+          <span class="card-date">—</span>
+          <span class="card-arrow">→</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Payroll -->
+  <div class="section">
+    <div class="section-title">
+      <h3>Payroll</h3>
+      <div class="section-title-line"></div>
+    </div>
+    <div class="cards">
+
+      <a class="card theme-green" href="https://soda2485.github.io/soda-payroll/" target="_blank">
+        <div class="card-accent"></div>
+        <div class="card-top">
+          <div class="card-icon">💰</div>
+          <span class="card-badge">External</span>
+        </div>
+        <h4>Payroll Reports</h4>
+        <p>Pay period summaries and staff payroll history.</p>
+        <div class="card-footer">
+          <span class="card-date">soda-payroll repo</span>
+          <span class="card-arrow">↗</span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+
+</div>
+
+<script>
+  document.getElementById("today").textContent =
+    new Date().toLocaleDateString("en-AU", { weekday:"long", day:"numeric", month:"long", year:"numeric" });
+</script>
+
+</body>
+</html>
