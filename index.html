@@ -82,9 +82,18 @@
       margin-top: 6px;
     }
 
+    /* ── Section pair (side-by-side) ── */
+    .section-pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 40px;
+      align-items: start;
+    }
+
     /* ── Section ── */
     .section {
-      margin-bottom: 48px;
+      min-width: 0;
     }
 
     .section-title {
@@ -100,6 +109,7 @@
       text-transform: uppercase;
       letter-spacing: 0.8px;
       color: #555;
+      white-space: nowrap;
     }
 
     .section-title-line {
@@ -108,13 +118,7 @@
       background: #e4e4e0;
     }
 
-    /* ── Cards grid ── */
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 16px;
-    }
-
+    /* ── Card ── */
     .card {
       background: #fff;
       border-radius: 14px;
@@ -214,9 +218,16 @@
     .theme-gold   { --accent: #e0a83a; --bg: #fdf4e0; --text: #7a5200; }
     .theme-grey   { --accent: #aaaaaa; --bg: #f0f0f0; --text: #555555; }
 
-    .card-accent   { background: var(--accent); }
-    .card-icon     { background: var(--bg); }
-    .card-badge    { background: var(--bg); color: var(--text); }
+    .card-accent { background: var(--accent); }
+    .card-icon   { background: var(--bg); }
+    .card-badge  { background: var(--bg); color: var(--text); }
+
+    /* ── Responsive ── */
+    @media (max-width: 640px) {
+      .topbar { padding: 0 16px; }
+      .page { padding: 32px 16px; }
+      .section-pair { grid-template-columns: 1fr; gap: 16px; margin-bottom: 24px; }
+    }
   </style>
 </head>
 <body>
@@ -238,14 +249,14 @@
     <p>Weekly reports from Phorest — click any card to view the latest report.</p>
   </div>
 
-  <!-- Services -->
-  <div class="section">
-    <div class="section-title">
-      <h3>Services</h3>
-      <div class="section-title-line"></div>
-    </div>
-    <div class="cards">
+  <!-- Row 1: Services + Retail -->
+  <div class="section-pair">
 
+    <div class="section">
+      <div class="section-title">
+        <h3>Services</h3>
+        <div class="section-title-line"></div>
+      </div>
       <a class="card theme-blue" href="services/2026-04-27.html">
         <div class="card-accent"></div>
         <div class="card-top">
@@ -259,18 +270,13 @@
           <span class="card-arrow">→</span>
         </div>
       </a>
-
     </div>
-  </div>
 
-  <!-- Retail -->
-  <div class="section">
-    <div class="section-title">
-      <h3>Retail</h3>
-      <div class="section-title-line"></div>
-    </div>
-    <div class="cards">
-
+    <div class="section">
+      <div class="section-title">
+        <h3>Retail</h3>
+        <div class="section-title-line"></div>
+      </div>
       <div class="card theme-orange placeholder">
         <div class="card-accent"></div>
         <div class="card-top">
@@ -284,18 +290,18 @@
           <span class="card-arrow">→</span>
         </div>
       </div>
-
     </div>
+
   </div>
 
-  <!-- Staff -->
-  <div class="section">
-    <div class="section-title">
-      <h3>Staff</h3>
-      <div class="section-title-line"></div>
-    </div>
-    <div class="cards">
+  <!-- Row 2: Staff Performance + Staff Cost -->
+  <div class="section-pair">
 
+    <div class="section">
+      <div class="section-title">
+        <h3>Staff</h3>
+        <div class="section-title-line"></div>
+      </div>
       <div class="card theme-purple placeholder">
         <div class="card-accent"></div>
         <div class="card-top">
@@ -309,22 +315,17 @@
           <span class="card-arrow">→</span>
         </div>
       </div>
-
     </div>
-  </div>
 
-  <!-- Payroll -->
-  <div class="section">
-    <div class="section-title">
-      <h3>Staff Cost</h3>
-      <div class="section-title-line"></div>
-    </div>
-    <div class="cards">
-
+    <div class="section">
+      <div class="section-title">
+        <h3>Staff Cost</h3>
+        <div class="section-title-line"></div>
+      </div>
       <a class="card theme-gold" href="Payroll/staff-cost.html">
         <div class="card-accent"></div>
         <div class="card-top">
-          <div class="card-icon">👩‍🎨</div>
+          <div class="card-icon">💰</div>
           <span class="card-badge">Latest</span>
         </div>
         <h4>Staff Cost</h4>
@@ -334,8 +335,8 @@
           <span class="card-arrow">→</span>
         </div>
       </a>
-
     </div>
+
   </div>
 
 </div>
