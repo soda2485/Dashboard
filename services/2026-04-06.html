@@ -49,6 +49,10 @@
     .bar-track { flex: 1; display: flex; align-items: center; gap: 8px; }
     .bar { height: 22px; border-radius: 4px; min-width: 4px; transition: width 0.25s ease; }
     .count { font-size: 13px; font-weight: 600; color: #555; white-space: nowrap; }
+    .cat-total { font-size: 12px; font-weight: 700; color: #555; padding-left: 10px; white-space: nowrap; }
+    .grand-total-row { display: flex; align-items: center; margin-top: 20px; padding-top: 16px; border-top: 2px solid #e0e0de; }
+    .grand-total-label { width: 250px; min-width: 250px; font-size: 13px; font-weight: 700; color: #111; text-align: right; padding-right: 14px; }
+    .grand-total-value { font-size: 16px; font-weight: 800; color: #111; white-space: nowrap; }
     @media (max-width: 600px) { .topbar { padding: 0 16px; } .navbar { padding: 0 16px; } .page { padding: 24px 16px; } .label { width: 150px; min-width: 150px; font-size: 11px; } .cat-header-label { width: 150px; min-width: 150px; } }
   </style>
 </head>
@@ -210,9 +214,15 @@
     const grouped = currentTab === 'count' ? groupedByCount : groupedByRevenue;
     const maxVal  = currentTab === 'count' ? maxCount : maxRevenue;
     let firstVisible = true;
+    let grandTotal = 0;
     catOrder.forEach(cat => {
       const c = palette[cat];
       const visible = activeCategories.has(cat);
+      const catTotal = grouped[cat].reduce((s, svc) => s + (currentTab === 'count' ? svc.count : svc.revenue), 0);
+      if (visible) grandTotal += catTotal;
+      const catDisplay = currentTab === 'count'
+        ? catTotal
+        : (catTotal > 0 ? '$' + Math.round(catTotal).toLocaleString('en-AU') : '—');
       const header = document.createElement("div");
       header.className = "cat-header" + (visible ? "" : " hidden");
       if (visible && firstVisible) { header.style.marginTop = "0"; firstVisible = false; }
@@ -223,7 +233,8 @@
             ${cat}
           </span>
         </div>
-        <div class="cat-header-line"></div>`;
+        <div class="cat-header-line"></div>
+        <span class="cat-total" style="color:${c.text};">${catDisplay}</span>`;
       chartEl.appendChild(header);
       grouped[cat].forEach(svc => {
         const val = currentTab === 'count' ? svc.count : svc.revenue;
@@ -242,6 +253,19 @@
         chartEl.appendChild(row);
       });
     });
+    // Grand total row
+    const grandDisplay = currentTab === 'count'
+      ? grandTotal
+      : '$' + Math.round(grandTotal).toLocaleString('en-AU');
+    const totalRow = document.createElement("div");
+    totalRow.className = "grand-total-row";
+    totalRow.innerHTML = `
+      <div class="grand-total-label">Total</div>
+      <div class="bar-track">
+        <div style="flex:1;"></div>
+        <span class="grand-total-value">${grandDisplay}</span>
+      </div>`;
+    chartEl.appendChild(totalRow);
   }
   renderRows();
 
