@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Service Performance · 20 Apr – 26 Apr 2026 · Soda the Salon</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; background: #f7f7f5; color: #1a1a1a; min-height: 100vh; }
+    .topbar { background: #fff; border-bottom: 1px solid #e8e8e5; padding: 0 40px; display: flex; align-items: center; justify-content: space-between; height: 60px; position: sticky; top: 0; z-index: 100; }
+    .topbar-left { display: flex; align-items: center; gap: 12px; }
+    .logo { width: 32px; height: 32px; background: linear-gradient(135deg, #e07b5a, #a67cc9); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 800; font-size: 15px; }
+    .topbar h1 { font-size: 16px; font-weight: 700; color: #111; }
+    .back-link { font-size: 13px; color: #888; text-decoration: none; display: flex; align-items: center; gap: 4px; transition: color 0.15s; }
+    .back-link:hover { color: #333; }
+    .navbar { background: #fff; border-bottom: 1px solid #e8e8e5; padding: 0 40px; height: 52px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .nav-btn { display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: #555; text-decoration: none; padding: 6px 14px; border-radius: 8px; border: 1px solid #e0e0dc; background: #fafaf8; transition: background 0.15s, color 0.15s, border-color 0.15s; white-space: nowrap; }
+    .nav-btn:hover { background: #f0f0ec; color: #111; border-color: #ccc; }
+    .nav-btn.disabled { opacity: 0.35; pointer-events: none; }
+    .nav-center { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+    .nav-label { font-size: 14px; font-weight: 700; color: #111; }
+    .nav-sub { font-size: 11px; color: #aaa; letter-spacing: 0.3px; }
+    .page { max-width: 900px; margin: 0 auto; padding: 40px 32px; }
+    header { margin-bottom: 28px; }
+    header h2 { font-size: 22px; font-weight: 700; letter-spacing: -0.3px; color: #111; }
+    header p { font-size: 13px; color: #888; margin-top: 4px; }
+    .filter-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 28px; }
+    .badge { display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; cursor: pointer; border: 2px solid transparent; transition: opacity 0.15s, border-color 0.15s; user-select: none; }
+    .badge.active { border-color: rgba(0,0,0,0.25); }
+    .badge:hover { opacity: 0.8; }
+    .badge .dot { width: 8px; height: 8px; border-radius: 50%; }
+    .chart-wrap { background: #fff; border-radius: 14px; padding: 28px 32px; box-shadow: 0 1px 4px rgba(0,0,0,0.07); }
+    .chart-title { font-size: 13px; font-weight: 600; color: #555; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 20px; }
+    .cat-header { display: flex; align-items: center; margin-top: 24px; margin-bottom: 10px; }
+    .cat-header:first-child { margin-top: 0; }
+    .cat-header.hidden { display: none; }
+    .cat-header-label { width: 250px; min-width: 250px; text-align: right; padding-right: 14px; }
+    .cat-header-label span { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; padding: 3px 10px; border-radius: 20px; }
+    .cat-header-line { flex: 1; height: 1px; background: #e8e8e8; }
+    .row { display: flex; align-items: center; margin-bottom: 9px; }
+    .row.hidden { display: none; }
+    .label { width: 250px; min-width: 250px; font-size: 13px; color: #333; text-align: right; padding-right: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .bar-track { flex: 1; display: flex; align-items: center; gap: 8px; }
+    .bar { height: 22px; border-radius: 4px; min-width: 4px; }
+    .count { font-size: 13px; font-weight: 600; color: #555; white-space: nowrap; }
+    @media (max-width: 600px) { .topbar { padding: 0 16px; } .navbar { padding: 0 16px; } .page { padding: 24px 16px; } .label { width: 150px; min-width: 150px; font-size: 11px; } .cat-header-label { width: 150px; min-width: 150px; } }
+  </style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-left">
+    <div class="logo">S</div>
+    <h1>Soda the Salon</h1>
+  </div>
+  <a class="back-link" href="../index.html">← Dashboard</a>
+</div>
+
+<div class="navbar">
+  <a class="nav-btn disabled" id="btn-prev">← Previous</a>
+  <div class="nav-center">
+    <span class="nav-label" id="nav-label">20 Apr – 26 Apr 2026</span>
+    <span class="nav-sub">Service Performance</span>
+  </div>
+  <a class="nav-btn disabled" id="btn-next">Next →</a>
+</div>
+
+<div class="page">
+  <header>
+    <h2>Service Performance</h2>
+    <p>Soda the Salon &nbsp;·&nbsp; 20 Apr – 26 Apr 2026 &nbsp;·&nbsp; 7 days</p>
+  </header>
+  <div class="filter-row" id="filters"></div>
+  <div class="chart-wrap">
+    <div class="chart-title">Services performed · grouped by category</div>
+    <div id="chart"></div>
+  </div>
+</div>
+
+<script>
+  const THIS_FILE = "2026-04-20.html";
+
+  const services = [
+    // Cuts & Style
+    { name: "Haircut & Style",                    count: 34, cat: "Cuts & Style" },
+    { name: "Re-style Haircut",                   count: 9,  cat: "Cuts & Style" },
+    { name: "Men's Style Cut & Finish",           count: 5,  cat: "Cuts & Style" },
+    { name: "Fringe Trim",                        count: 5,  cat: "Cuts & Style" },
+    { name: "Blunt Cut",                          count: 5,  cat: "Cuts & Style" },
+    { name: "Shag | Wolf Cut",                    count: 4,  cat: "Cuts & Style" },
+    { name: "Blunt Cut / Express / Wet",          count: 2,  cat: "Cuts & Style" },
+    { name: "Short Haircut & Style",              count: 2,  cat: "Cuts & Style" },
+    // Colour & Chemical
+    { name: "Regrowth Tint - MED (30g)",          count: 7,  cat: "Colour & Chemical" },
+    { name: "Global Colour - SML",                count: 5,  cat: "Colour & Chemical" },
+    { name: "Global Colour - MED",                count: 4,  cat: "Colour & Chemical" },
+    { name: "Regrowth Tint - SML (20g)",          count: 3,  cat: "Colour & Chemical" },
+    { name: "Global Colour - XLRG",               count: 2,  cat: "Colour & Chemical" },
+    { name: "Regrowth Tint - LRG (40g)",          count: 2,  cat: "Colour & Chemical" },
+    { name: "Global Colour - LRG",                count: 1,  cat: "Colour & Chemical" },
+    { name: "Keratin Smoothing Part 1",           count: 1,  cat: "Colour & Chemical" },
+    { name: "Keratin Smoothing Part 2 - SML",     count: 1,  cat: "Colour & Chemical" },
+    // Toning
+    { name: "Gloss Toner - MED",                  count: 9,  cat: "Toning" },
+    { name: "Gloss Toner - SML",                  count: 9,  cat: "Toning" },
+    { name: "Gloss Toner (Consult)",              count: 3,  cat: "Toning" },
+    { name: "Zonal Toning - LRG",                 count: 2,  cat: "Toning" },
+    { name: "Gloss Toner - LRG",                  count: 1,  cat: "Toning" },
+    { name: "Gloss Toner - XLRG",                 count: 1,  cat: "Toning" },
+    { name: "Zonal Toning - SML",                 count: 1,  cat: "Toning" },
+    // Finishing
+    { name: "Blowdry - MED",                      count: 7,  cat: "Finishing" },
+    { name: "Dry Off",                            count: 5,  cat: "Finishing" },
+    { name: "Blowdry - SML",                      count: 2,  cat: "Finishing" },
+    { name: "Blowdry - LRG",                      count: 1,  cat: "Finishing" },
+    { name: "Luxury Wash & Scalp Cleanse",        count: 1,  cat: "Finishing" },
+    // Treatments
+    { name: "Olaplex 1 + 2",                      count: 4,  cat: "Treatments" },
+    { name: "EVO Top Drop",                       count: 4,  cat: "Treatments" },
+    { name: "K18",                                count: 1,  cat: "Treatments" },
+    // Foils & Balayage
+    { name: "Foils ¼ Head Package - SML",         count: 2,  cat: "Foils & Balayage" },
+    { name: "Foils ½ Head Package - MED",         count: 2,  cat: "Foils & Balayage" },
+    { name: "Balayage ¾ Head Package - MED",      count: 2,  cat: "Foils & Balayage" },
+    { name: "Face Frame Foils Package - MED",     count: 1,  cat: "Foils & Balayage" },
+    { name: "Face Frame Foils Package - SML",     count: 1,  cat: "Foils & Balayage" },
+    { name: "Face Frame Foils Package - XLRG",    count: 1,  cat: "Foils & Balayage" },
+    { name: "Foils ½ Head Package - SML",         count: 1,  cat: "Foils & Balayage" },
+    { name: "Foils ¾ Head Package - SML",         count: 1,  cat: "Foils & Balayage" },
+    { name: "Foils ¾ Head Package - MED",         count: 1,  cat: "Foils & Balayage" },
+    { name: "Balayage ½ Head Package - MED",      count: 1,  cat: "Foils & Balayage" },
+    { name: "Balayage ½ Head Package - LRG",      count: 1,  cat: "Foils & Balayage" },
+    { name: "Balayage ¾ Head Package - LRG",      count: 1,  cat: "Foils & Balayage" },
+    { name: "Balayage Full Head Package - XLRG",  count: 1,  cat: "Foils & Balayage" },
+    { name: "Basin Balayage",                     count: 1,  cat: "Foils & Balayage" },
+    // Other
+    { name: "No Treatment Thanks",                count: 1,  cat: "Other" },
+  ];
+
+  const palette = {
+    "Cuts & Style":       { bar: "#6c9bd1", bg: "#eaf1fb", text: "#2c5a8a" },
+    "Colour & Chemical":  { bar: "#e07b5a", bg: "#fceee9", text: "#8a3020" },
+    "Toning":             { bar: "#a67cc9", bg: "#f2eaf9", text: "#5a2e8a" },
+    "Finishing":          { bar: "#4db89a", bg: "#e6f6f2", text: "#1a6652" },
+    "Treatments":         { bar: "#c9b06e", bg: "#f9f4e6", text: "#6b5010" },
+    "Foils & Balayage":   { bar: "#e0a83a", bg: "#fdf4e0", text: "#7a5200" },
+    "Other":              { bar: "#aaaaaa", bg: "#f0f0f0", text: "#555555" },
+  };
+
+  const catOrder = ["Cuts & Style","Colour & Chemical","Toning","Finishing","Treatments","Foils & Balayage","Other"];
+  const maxCount = Math.max(...services.map(s => s.count));
+
+  const grouped = {};
+  catOrder.forEach(cat => { grouped[cat] = []; });
+  services.forEach(svc => { if (grouped[svc.cat]) grouped[svc.cat].push(svc); });
+  catOrder.forEach(cat => grouped[cat].sort((a,b) => b.count - a.count));
+
+  let activeCategories = new Set(catOrder);
+  const filtersEl = document.getElementById("filters");
+  catOrder.forEach(cat => {
+    const c = palette[cat];
+    const btn = document.createElement("div");
+    btn.className = "badge active";
+    btn.style.background = c.bg;
+    btn.style.color = c.text;
+    btn.innerHTML = `<span class="dot" style="background:${c.bar}"></span>${cat}`;
+    btn.addEventListener("click", () => {
+      if (activeCategories.has(cat)) { activeCategories.delete(cat); btn.classList.remove("active"); }
+      else { activeCategories.add(cat); btn.classList.add("active"); }
+      renderRows();
+    });
+    filtersEl.appendChild(btn);
+  });
+
+  const chartEl = document.getElementById("chart");
+  function renderRows() {
+    chartEl.innerHTML = "";
+    let firstVisible = true;
+    catOrder.forEach(cat => {
+      const c = palette[cat];
+      const visible = activeCategories.has(cat);
+      const header = document.createElement("div");
+      header.className = "cat-header" + (visible ? "" : " hidden");
+      if (visible && firstVisible) { header.style.marginTop = "0"; firstVisible = false; }
+      header.innerHTML = `
+        <div class="cat-header-label">
+          <span style="background:${c.bg};color:${c.text};">
+            <span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:${c.bar};"></span>
+            ${cat}
+          </span>
+        </div>
+        <div class="cat-header-line"></div>`;
+      chartEl.appendChild(header);
+      grouped[cat].forEach(svc => {
+        const pct = (svc.count / maxCount) * 100;
+        const row = document.createElement("div");
+        row.className = "row" + (visible ? "" : " hidden");
+        row.innerHTML = `
+          <div class="label" title="${svc.name}">${svc.name}</div>
+          <div class="bar-track">
+            <div class="bar" style="width:${pct}%;background:${c.bar};"></div>
+            <span class="count">${svc.count}</span>
+          </div>`;
+        chartEl.appendChild(row);
+      });
+    });
+  }
+  renderRows();
+
+  fetch("manifest.json")
+    .then(r => r.json())
+    .then(data => {
+      const reports = data.reports;
+      const idx = reports.findIndex(r => r.filename === THIS_FILE);
+      if (idx < 0) return;
+      document.getElementById("nav-label").textContent = reports[idx].label;
+      const prevBtn = document.getElementById("btn-prev");
+      const nextBtn = document.getElementById("btn-next");
+      if (idx > 0) {
+        const prev = reports[idx - 1];
+        prevBtn.classList.remove("disabled");
+        prevBtn.href = prev.filename;
+        prevBtn.innerHTML = `← ${prev.label}`;
+      }
+      if (idx < reports.length - 1) {
+        const next = reports[idx + 1];
+        nextBtn.classList.remove("disabled");
+        nextBtn.href = next.filename;
+        nextBtn.innerHTML = `${next.label} →`;
+      }
+    })
+    .catch(() => {});
+</script>
+</body>
+</html>
