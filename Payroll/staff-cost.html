@@ -183,9 +183,9 @@ new Chart(document.getElementById('chart'), {
       y1: {
         type: 'linear',
         position: 'right',
-        min: 0,
-        suggestedMax: 60,
-        ticks: { font: { size: 11 }, callback: v => v + '%', color: '#2E8B57' },
+        min: 30,
+        max: 75,
+        ticks: { font: { size: 11 }, stepSize: 5, callback: v => v + '%', color: '#2E8B57' },
         grid: { drawOnChartArea: false }
       }
     }
