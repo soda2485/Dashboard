@@ -99,41 +99,36 @@
 
 <script>
 const PERIODS = [
-  { end:'27 Apr 2025', dates:'14 Apr – 27 Apr 2025',   rev:24704,  staff:11735.19, dirIga:0,        iga:11735.19 },
-  { end:'11 May 2025', dates:'28 Apr – 11 May 2025',   rev:33737,  staff:13260.81, dirIga:0,        iga:13260.81 },
-  { end:'27 May 2025', dates:'12 May – 25 May 2025',   rev:28830,  staff:13754.74, dirIga:0,        iga:13754.74 },
-  { end:'10 Jun 2025', dates:'26 May – 8 Jun 2025',    rev:27086,  staff:14118.65, dirIga:0,        iga:14118.65 },
-  { end:'24 Jun 2025', dates:'9 Jun – 22 Jun 2025',    rev:28624,  staff:12544.72, dirIga:440.75,   iga:12985.47 },
-  { end:'8 Jul 2025',  dates:'23 Jun – 6 Jul 2025',    rev:28465,  staff:12637.38, dirIga:594.50,   iga:13231.88 },
-  { end:'22 Jul 2025', dates:'7 Jul – 20 Jul 2025',    rev:33373,  staff:12306.30, dirIga:799.50,   iga:13105.80 },
-  { end:'5 Aug 2025',  dates:'21 Jul – 3 Aug 2025',    rev:33392,  staff:12585.97, dirIga:328.00,   iga:12913.97 },
-  { end:'19 Aug 2025', dates:'4 Aug – 17 Aug 2025',    rev:27598,  staff:10890.48, dirIga:1172.60,  iga:12063.08 },
-  { end:'2 Sep 2025',  dates:'18 Aug – 31 Aug 2025',    rev:33898,  staff:12035.77, dirIga:1127.50,  iga:13163.27 },
-  { end:'16 Sep 2025', dates:'1 Sep – 14 Sep 2025',   rev:36745,  staff:12606.07, dirIga:1886.00,  iga:14492.07 },
-  { end:'30 Sep 2025', dates:'—',                      rev:36745,  staff:12896.36, dirIga:1172.60,  iga:14068.96 },
-  { end:'12 Oct 2025', dates:'28 Sep – 12 Oct 2025',   rev:32137,  staff:12720.85, dirIga:1209.50,  iga:13930.35 },
-  { end:'28 Oct 2025', dates:'—',                      rev:33985,  staff:13329.50, dirIga:1254.60,  iga:14584.10 },
-  { end:'11 Nov 2025', dates:'—',                      rev:35061,  staff:13734.26, dirIga:1373.50,  iga:15107.76 },
-  { end:'25 Nov 2025', dates:'—',                      rev:39609,  staff:14278.50, dirIga:1271.00,  iga:15549.50 },
-  { end:'7 Dec 2025',  dates:'24 Nov – 7 Dec 2025',    rev:40364,  staff:14582.93, dirIga:1394.00,  iga:15976.93 },
-  { end:'21 Dec 2025', dates:'8 Dec – 21 Dec 2025',    rev:47726,  staff:15633.31, dirIga:1927.00,  iga:17560.31 },
-  { end:'4 Jan 2026',  dates:'22 Dec – 4 Jan 2026',    rev:16354,  staff:11726.05, dirIga:184.50,   iga:11910.55 },
-  { end:'20 Jan 2026', dates:'—',                      rev:36545,  staff:13507.17, dirIga:725.70,   iga:14232.87 },
-  { end:'3 Feb 2026',  dates:'—',                      rev:36650,  staff:13637.74, dirIga:1763.00,  iga:15400.74 },
-  { end:'17 Feb 2026', dates:'—',                      rev:38192,  staff:15601.08, dirIga:574.00,   iga:16175.08 },
-  { end:'3 Mar 2026',  dates:'—',                      rev:42144,  staff:16553.17, dirIga:471.50,   iga:17024.67 },
-  { end:'17 Mar 2026', dates:'—',                      rev:37835,  staff:14260.15, dirIga:1066.00,  iga:15326.15 },
-  { end:'31 Mar 2026', dates:'—',                      rev:33614,  staff:11997.76, dirIga:1096.75,  iga:13094.51 },
-  { end:'14 Apr 2026', dates:'—',                      rev:29782,  staff:10984.71, dirIga:956.30,   iga:11941.01 },
-  { end:'28 Apr 2026', dates:'—',                      rev:38558,  staff:13458.71, dirIga:1025.00,  iga:14483.71 },
+  { end:'2025-04-27', dates:'14 Apr – 27 Apr 2025',   rev:24704,  staff:11735.19, dirIga:0,        iga:11735.19 },
+  { end:'2025-05-11', dates:'28 Apr – 11 May 2025',   rev:33737,  staff:13260.81, dirIga:0,        iga:13260.81 },
+  { end:'2025-05-27', dates:'12 May – 25 May 2025',   rev:28830,  staff:13754.74, dirIga:0,        iga:13754.74 },
+  { end:'2025-06-10', dates:'26 May – 8 Jun 2025',    rev:27086,  staff:14118.65, dirIga:0,        iga:14118.65 },
+  { end:'2025-06-24', dates:'9 Jun – 22 Jun 2025',    rev:28624,  staff:12544.72, dirIga:440.75,   iga:12985.47 },
+  { end:'2025-07-08',  dates:'23 Jun – 6 Jul 2025',    rev:28465,  staff:12637.38, dirIga:594.50,   iga:13231.88 },
+  { end:'2025-07-22', dates:'7 Jul – 20 Jul 2025',    rev:33373,  staff:12306.30, dirIga:799.50,   iga:13105.80 },
+  { end:'2025-08-05',  dates:'21 Jul – 3 Aug 2025',    rev:33392,  staff:12585.97, dirIga:328.00,   iga:12913.97 },
+  { end:'2025-08-19', dates:'4 Aug – 17 Aug 2025',    rev:27598,  staff:10890.48, dirIga:1172.60,  iga:12063.08 },
+  { end:'2025-09-02',  dates:'18 Aug – 31 Aug 2025',    rev:33898,  staff:12035.77, dirIga:1127.50,  iga:13163.27 },
+  { end:'2025-09-16', dates:'1 Sep – 14 Sep 2025',   rev:36745,  staff:12606.07, dirIga:1886.00,  iga:14492.07 },
+  { end:'2025-09-30', dates:'—',                      rev:36745,  staff:12896.36, dirIga:1172.60,  iga:14068.96 },
+  { end:'2025-10-12', dates:'28 Sep – 12 Oct 2025',   rev:32137,  staff:12720.85, dirIga:1209.50,  iga:13930.35 },
+  { end:'2025-10-28', dates:'—',                      rev:33985,  staff:13329.50, dirIga:1254.60,  iga:14584.10 },
+  { end:'2025-11-11', dates:'—',                      rev:35061,  staff:13734.26, dirIga:1373.50,  iga:15107.76 },
+  { end:'2025-11-25', dates:'—',                      rev:39609,  staff:14278.50, dirIga:1271.00,  iga:15549.50 },
+  { end:'2025-12-07',  dates:'24 Nov – 7 Dec 2025',    rev:40364,  staff:14582.93, dirIga:1394.00,  iga:15976.93 },
+  { end:'2025-12-21', dates:'8 Dec – 21 Dec 2025',    rev:47726,  staff:15633.31, dirIga:1927.00,  iga:17560.31 },
+  { end:'2026-01-04',  dates:'22 Dec – 4 Jan 2026',    rev:16354,  staff:11726.05, dirIga:184.50,   iga:11910.55 },
+  { end:'2026-01-20', dates:'—',                      rev:36545,  staff:13507.17, dirIga:725.70,   iga:14232.87 },
+  { end:'2026-02-03',  dates:'—',                      rev:36650,  staff:13637.74, dirIga:1763.00,  iga:15400.74 },
+  { end:'2026-02-17', dates:'—',                      rev:38192,  staff:15601.08, dirIga:574.00,   iga:16175.08 },
+  { end:'2026-03-03',  dates:'—',                      rev:42144,  staff:16553.17, dirIga:471.50,   iga:17024.67 },
+  { end:'2026-03-17', dates:'—',                      rev:37835,  staff:14260.15, dirIga:1066.00,  iga:15326.15 },
+  { end:'2026-03-31', dates:'—',                      rev:33614,  staff:11997.76, dirIga:1096.75,  iga:13094.51 },
+  { end:'2026-04-14', dates:'—',                      rev:29782,  staff:10984.71, dirIga:956.30,   iga:11941.01 },
+  { end:'2026-04-28', dates:'—',                      rev:38558,  staff:13458.71, dirIga:1025.00,  iga:14483.71 },
 ];
 
 const fmt = v => '$' + Math.round(v).toLocaleString('en-AU');
-const MONTHS = {Jan:'01',Feb:'02',Mar:'03',Apr:'04',May:'05',Jun:'06',Jul:'07',Aug:'08',Sep:'09',Oct:'10',Nov:'11',Dec:'12'};
-const toIso = s => {
-  const [d,m,y] = s.split(' ');
-  return y + '-' + MONTHS[m] + '-' + d.padStart(2,'0');
-};
 const pct = (a,b) => (a/b*100).toFixed(1) + '%';
 
 function effPill(p) {
@@ -147,7 +142,7 @@ function render(data) {
   tbody.innerHTML = data.map(r => {
     const p = r.iga / r.rev * 100;
     return `<tr>
-      <td>${toIso(r.end)}</td>
+      <td>${r.end}</td>
       <td class="num">${fmt(r.rev)}</td>
       <td class="num">${fmt(r.staff)}</td>
       <td class="num">${fmt(r.dirIga)}</td>
@@ -170,7 +165,7 @@ document.getElementById('mRev').textContent = fmt(totalRev);
 document.getElementById('mIga').textContent = fmt(totalIga);
 document.getElementById('mPct').textContent = avgPct.toFixed(1) + '%';
 document.getElementById('mPeak').textContent = fmt(peak.rev);
-document.getElementById('mPeakDate').textContent = toIso(peak.end);
+document.getElementById('mPeakDate').textContent = peak.end;
 
 let sortCol = -1, sortDir = 1;
 document.querySelectorAll('thead th').forEach(th => {
@@ -179,7 +174,7 @@ document.querySelectorAll('thead th').forEach(th => {
     if (sortCol === col) sortDir *= -1; else { sortCol = col; sortDir = 1; }
     document.querySelectorAll('thead th').forEach(t => t.classList.remove('sorted-asc','sorted-desc'));
     th.classList.add(sortDir === 1 ? 'sorted-asc' : 'sorted-desc');
-    const vals = [r => toIso(r.end), r => r.rev, r => r.staff, r => r.dirIga, r => r.iga, r => r.iga/r.rev, r => r.iga/r.rev];
+    const vals = [r => r.end, r => r.rev, r => r.staff, r => r.dirIga, r => r.iga, r => r.iga/r.rev, r => r.iga/r.rev];
     const sorted = [...PERIODS].sort((a,b) => {
       const va = vals[col](a), vb = vals[col](b);
       return (typeof va === 'string' ? va.localeCompare(vb) : va - vb) * sortDir;
