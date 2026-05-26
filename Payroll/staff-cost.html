@@ -22,7 +22,10 @@
   .metric-value { font-size: 20px; font-weight: 500; margin: 0; }
   .metric-sub { font-size: 11px; color: #888; margin: 4px 0 0; }
   .legend { display: flex; gap: 16px; margin-bottom: 10px; font-size: 12px; color: #666; }
-  .legend span { display: flex; align-items: center; gap: 5px; }
+  .legend .legend-item { display: flex; align-items: center; gap: 5px; cursor: pointer; user-select: none; padding: 2px 4px; border-radius: 4px; transition: opacity 0.15s; }
+  .legend .legend-item:hover { background: rgba(0,0,0,0.04); }
+  .legend .legend-item.disabled { opacity: 0.35; }
+  .legend .legend-item.disabled .swatch { background: #bbb !important; }
   .swatch { width: 10px; height: 10px; border-radius: 2px; display: inline-block; }
   .chart-wrap { position: relative; width: 100%; height: 380px; background: #fff; border: 0.5px solid rgba(0,0,0,0.1); border-radius: 8px; padding: 1rem; box-sizing: border-box; }
   .updated { font-size: 11px; color: #aaa; margin-top: 1rem; text-align: right; }
@@ -64,10 +67,10 @@
   </div>
 </div>
 
-<div class="legend">
-  <span><span class="swatch" style="background:#185FA5;"></span>Revenue</span>
-  <span><span class="swatch" style="background:#B54A00;"></span>Team IGA Cost</span>
-  <span><span class="swatch" style="background:#2E8B57;"></span>IGA %</span>
+<div class="legend" id="legend">
+  <span class="legend-item" data-ds="0"><span class="swatch" style="background:#185FA5;"></span>Revenue</span>
+  <span class="legend-item" data-ds="1"><span class="swatch" style="background:#B54A00;"></span>Team IGA Cost</span>
+  <span class="legend-item" data-ds="2"><span class="swatch" style="background:#2E8B57;"></span>IGA %</span>
 </div>
 
 <div class="chart-wrap">
@@ -98,7 +101,7 @@ document.getElementById('avgIga').textContent = fmt(avgIga);
 document.getElementById('igaPct').textContent = (avgIga/avgRev*100).toFixed(1) + '%';
 document.getElementById('updatedTs').textContent = 'Last updated: 1 May 2026 (2)';
 
-new Chart(document.getElementById('chart'), {
+const chart = new Chart(document.getElementById('chart'), {
   type: 'line',
   data: {
     labels: DATA.labels,
@@ -190,6 +193,16 @@ new Chart(document.getElementById('chart'), {
       }
     }
   }
+});
+
+document.querySelectorAll('#legend .legend-item').forEach(el => {
+  el.addEventListener('click', () => {
+    const idx = +el.dataset.ds;
+    const visible = chart.isDatasetVisible(idx);
+    chart.setDatasetVisibility(idx, !visible);
+    el.classList.toggle('disabled', visible);
+    chart.update();
+  });
 });
 </script>
 </body>
