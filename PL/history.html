@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Soda the Salon — P&amp;L History</title>
+<style>
+  :root {
+    --bg: #faf7f3;
+    --card: #ffffff;
+    --ink: #1a1a1a;
+    --muted: #6b6b6b;
+    --line: #ececec;
+    --accent-2: #8a6240;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 32px 24px 64px; }
+  header { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 12px; margin-bottom: 24px; }
+  h1 { font-size: 28px; font-weight: 600; margin: 0; letter-spacing: -0.01em; }
+  .sub { color: var(--muted); font-size: 14px; }
+  nav a { color: var(--accent-2); text-decoration: none; font-size: 14px; margin-left: 16px; }
+  nav a:hover { text-decoration: underline; }
+  .count { color: var(--muted); font-size: 13px; margin-bottom: 12px; }
+  .table-wrap { background: var(--card); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th, td { padding: 12px 16px; text-align: right; border-bottom: 1px solid var(--line); }
+  th:first-child, td:first-child { text-align: left; }
+  th { background: #f5f1ec; font-weight: 600; color: var(--muted); text-transform: uppercase; font-size: 11px; letter-spacing: 0.06em; }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr:hover { background: #faf6f1; }
+  footer { margin-top: 24px; font-size: 12px; color: var(--muted); text-align: center; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <h1>Soda the Salon · P&amp;L History</h1>
+      <div class="sub">All captured periods</div>
+    </div>
+    <nav>
+      <a href="pl.html">← Dashboard</a>
+      <a href="../index.html">Dashboards</a>
+    </nav>
+  </header>
+
+  <div class="count" id="count">1 month</div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Period</th>
+          <th>Sales</th>
+          <th>Gross Profit</th>
+          <th>GP Margin</th>
+          <th>Net Profit</th>
+          <th>NP Margin</th>
+          <th>Wages %</th>
+        </tr>
+      </thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </div>
+
+  <footer>Last updated: 27 May 2026</footer>
+</div>
+
+<script>
+const PERIODS = [
+  { month:'2026-04', label:'Apr 2026', sales:73235, gp:67983.69, np:22600.98, gpMargin:92.8, npMargin:30.9, wagesPct:38.8 }
+];
+
+const money = v => '$' + Math.round(v).toLocaleString('en-AU');
+const money2 = v => '$' + v.toLocaleString('en-AU', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const pct = v => v.toFixed(1) + '%';
+
+const rows = PERIODS
+  .slice()
+  .sort((a,b) => b.month.localeCompare(a.month))
+  .map(p => `
+    <tr>
+      <td>${p.label}</td>
+      <td>${money(p.sales)}</td>
+      <td>${money2(p.gp)}</td>
+      <td>${pct(p.gpMargin)}</td>
+      <td>${money2(p.np)}</td>
+      <td>${pct(p.npMargin)}</td>
+      <td>${pct(p.wagesPct)}</td>
+    </tr>
+  `).join('');
+document.getElementById('rows').innerHTML = rows;
+document.getElementById('count').textContent = PERIODS.length + (PERIODS.length === 1 ? ' month' : ' months');
+</script>
+</body>
+</html>

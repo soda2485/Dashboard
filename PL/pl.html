@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Soda the Salon — Profit &amp; Loss</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #faf7f3;
+    --card: #ffffff;
+    --ink: #1a1a1a;
+    --muted: #6b6b6b;
+    --line: #ececec;
+    --accent: #c89a6b;
+    --accent-2: #8a6240;
+    --good: #2f8f4f;
+    --bad: #c0392b;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 32px 24px 64px; }
+  header { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 12px; margin-bottom: 28px; }
+  h1 { font-size: 28px; font-weight: 600; margin: 0; letter-spacing: -0.01em; }
+  .sub { color: var(--muted); font-size: 14px; }
+  nav a { color: var(--accent-2); text-decoration: none; font-size: 14px; margin-left: 16px; }
+  nav a:hover { text-decoration: underline; }
+  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 32px; }
+  .kpi { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 18px 20px; }
+  .kpi .label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+  .kpi .value { font-size: 26px; font-weight: 600; margin-top: 6px; }
+  .kpi .period { font-size: 12px; color: var(--muted); margin-top: 4px; }
+  .charts { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 800px) { .charts { grid-template-columns: 1fr; } }
+  .chart-card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 18px 20px; }
+  .chart-card h2 { font-size: 14px; font-weight: 600; margin: 0 0 12px; color: var(--ink); text-transform: uppercase; letter-spacing: 0.06em; }
+  .chart-wrap { position: relative; height: 220px; }
+  footer { margin-top: 32px; font-size: 12px; color: var(--muted); text-align: center; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <h1>Soda the Salon · Profit &amp; Loss</h1>
+      <div class="sub">Monthly performance trend</div>
+    </div>
+    <nav>
+      <a href="history.html">History →</a>
+      <a href="../index.html">Dashboards</a>
+    </nav>
+  </header>
+
+  <div class="kpi-grid" id="kpiGrid"></div>
+
+  <div class="charts">
+    <div class="chart-card"><h2>Sales</h2><div class="chart-wrap"><canvas id="cSales"></canvas></div></div>
+    <div class="chart-card"><h2>Net Profit</h2><div class="chart-wrap"><canvas id="cNet"></canvas></div></div>
+    <div class="chart-card"><h2>Net Profit Margin (%)</h2><div class="chart-wrap"><canvas id="cMargin"></canvas></div></div>
+    <div class="chart-card"><h2>Wages % of Sales</h2><div class="chart-wrap"><canvas id="cWages"></canvas></div></div>
+  </div>
+
+  <footer>Last updated: 27 May 2026</footer>
+</div>
+
+<script>
+const DATA = {
+  labels:    ['Apr 26'],
+  sales:     [73235],
+  netProfit: [22600.98],
+  npMargin:  [30.9],
+  wagesPct:  [38.8]
+};
+
+const fmtMoney = v => '$' + Math.round(v).toLocaleString('en-AU');
+const fmtPct = v => v.toFixed(1) + '%';
+
+function renderKPIs() {
+  const last = DATA.labels.length - 1;
+  if (last < 0) return;
+  const items = [
+    { label: 'Sales',             value: fmtMoney(DATA.sales[last]) },
+    { label: 'Net Profit',        value: fmtMoney(DATA.netProfit[last]) },
+    { label: 'NP Margin',         value: fmtPct(DATA.npMargin[last]) },
+    { label: 'Wages %',           value: fmtPct(DATA.wagesPct[last]) }
+  ];
+  const grid = document.getElementById('kpiGrid');
+  grid.innerHTML = items.map(i =>
+    `<div class="kpi"><div class="label">${i.label}</div><div class="value">${i.value}</div><div class="period">${DATA.labels[last]}</div></div>`
+  ).join('');
+}
+
+const baseOpts = (yFmt) => ({
+  responsive: true,
+  maintainAspectRatio: false,
+  plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => yFmt(ctx.parsed.y) } } },
+  scales: {
+    x: { grid: { display: false }, ticks: { color: '#6b6b6b' } },
+    y: { grid: { color: '#f0ece6' }, ticks: { color: '#6b6b6b', callback: v => yFmt(v) } }
+  },
+  elements: { line: { tension: 0.3 }, point: { radius: 4, hoverRadius: 6 } }
+});
+
+function makeChart(id, dataset, color, yFmt) {
+  new Chart(document.getElementById(id), {
+    type: 'line',
+    data: {
+      labels: DATA.labels,
+      datasets: [{ data: dataset, borderColor: color, backgroundColor: color + '22', fill: true, borderWidth: 2 }]
+    },
+    options: baseOpts(yFmt)
+  });
+}
+
+renderKPIs();
+makeChart('cSales',  DATA.sales,     '#c89a6b', fmtMoney);
+makeChart('cNet',    DATA.netProfit, '#8a6240', fmtMoney);
+makeChart('cMargin', DATA.npMargin,  '#2f8f4f', fmtPct);
+makeChart('cWages',  DATA.wagesPct,  '#c0392b', fmtPct);
+</script>
+</body>
+</html>
