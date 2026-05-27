@@ -258,6 +258,33 @@
 
   </div>
 
+  <!-- Row 3: Profit & Loss -->
+  <div class="section-pair" style="grid-template-columns: 1fr;">
+
+    <div class="section">
+      <div class="section-title">
+        <h3>Profit &amp; Loss</h3>
+        <div class="section-title-line"></div>
+      </div>
+      <a class="card theme-green" id="pl-card" href="PL/pl.html">
+        <div class="card-accent"></div>
+        <div class="card-top">
+          <div class="card-icon">📊</div>
+          <span class="card-badge">Latest</span>
+        </div>
+        <h4>Profit &amp; Loss</h4>
+        <div class="card-revenue" id="pl-sales">—</div>
+        <div class="card-revenue-label">Sales</div>
+        <div class="card-pct" id="pl-margin">— net margin</div>
+        <div class="card-footer">
+          <span class="card-date" id="pl-date">—</span>
+          <span class="card-arrow">→</span>
+        </div>
+      </a>
+    </div>
+
+  </div>
+
 </div>
 
 <script>
@@ -313,6 +340,18 @@
       document.getElementById("staff-cost").textContent = "$" + Math.round(p.igaCost).toLocaleString("en-AU");
       document.getElementById("staff-pct").textContent = p.igaPct.toFixed(1) + "% of revenue";
       document.getElementById("staff-date").textContent = p.label;
+    })
+    .catch(() => {});
+
+  // Dynamically load latest P&L data
+  fetch("PL/summary.json")
+    .then(r => r.json())
+    .then(data => {
+      const p = data.latest;
+      if (!p) return;
+      document.getElementById("pl-sales").textContent = "$" + Math.round(p.sales).toLocaleString("en-AU");
+      document.getElementById("pl-margin").textContent = p.npMargin.toFixed(1) + "% net margin";
+      document.getElementById("pl-date").textContent = p.label;
     })
     .catch(() => {});
 </script>
